@@ -39,6 +39,7 @@ const updateProduct = asyncHandler(async (req, res) => {
     product.category = req.body.category ?? product.category;
     product.discount = req.body.discount ?? product.discount;
     product.price = req.body.price ?? product.price;
+    product.isRohan = true;
     product.inStockCount = req.body.inStockCount ?? product.inStockCount;
     product.brand = req.body.brand ?? product.brand;
     product.inStock = req.body.inStock ?? product.inStock;
