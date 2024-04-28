@@ -27,6 +27,9 @@ const productSchema = new mongoose.Schema({
   discount: {
     type: String,
   },
+  inStockCount: {
+    type: String,
+  },
   category: {
     type: String,
   },
