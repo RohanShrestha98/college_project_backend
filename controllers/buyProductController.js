@@ -6,8 +6,8 @@ const BuyProductModal = require("../models/buyProductModal");
 //@access private
 const createBuyProduct = asyncHandler(async (req, res) => {
   const { name, description,price} = req.body;
-  // console.log("req.user.id",req.user.id)
-
+  console.log("req.user.id",req.user.id)
+s
   if (!name || !description || !price) {
     res
       .status(400)
@@ -15,7 +15,7 @@ const createBuyProduct = asyncHandler(async (req, res) => {
   }
   const details = await BuyProductModal.create({
     ...req.body,
-    user_id: req?.user?.id??"user",
+    user_id: req?.user?.id ?? "user",
   });
   res.status(201).json({ success: true, details });
 });
@@ -82,9 +82,22 @@ const getAllBuyProduct = async (req, res) => {
   }
 };
 
+
+const getAllBuyProductByUser = async (req, res) => {
+  console.log("req",req)
+  try {
+    // Fetch all files with their title and description
+    const data = await BuyProductModal.findById();
+    res.status(200).json({ success: true, data });
+  } catch (error) {
+    res.status(500).json({ success: false, message: "Failed to fetch files" });
+  }
+};
+
 module.exports = {
   getAllBuyProduct,
   createBuyProduct,
   updateBuyProduct,
   deleteBuyProduct,
+  getAllBuyProductByUser,
 };
