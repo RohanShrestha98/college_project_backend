@@ -85,10 +85,22 @@ const getAllProduct = async (req, res) => {
     res.status(500).json({ success: false, message: "Failed to fetch files" });
   }
 };
+const getProductByCategory = async (req, res) => {
+  const query = req.query.search;
+  
+  try {
+    const data = await ProductModal.find({ category: req.params.id ,title: { $regex: query, $options: 'i' }});
+    res.status(200).json({ success: true, data });
+  } catch (error) {
+    res.status(500).json({ success: false, message: "Failed to fetch files" });
+  }
+};
+
 
 module.exports = {
   getAllProduct,
   createProduct,
   updateProduct,
   deleteProduct,
+  getProductByCategory,
 };

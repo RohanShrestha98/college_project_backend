@@ -13,11 +13,19 @@ const createBuyProduct = asyncHandler(async (req, res) => {
       .status(400)
       .json({ success: false,value:req.body, messege: "All fields are required" });
   }
-  const details = await BuyProductModal.create({
-    ...req.body,
-    user_id: req?.user?.id ?? "user",
-  });
-  res.status(201).json({ success: true, details });
+  try{
+    const details = await BuyProductModal.create({
+      ...req.body,
+      user_id: req?.user?.id ?? "user",
+    });
+    res.status(201).json({ success: true, details });
+  }catch(err){
+    console.log("err",err)
+    res
+      .status(400)
+      .json({ success: false, messege: "You has just ordered this product" });
+  }
+  
 });
 
 //@desc update a product
@@ -84,7 +92,7 @@ const getAllBuyProduct = async (req, res) => {
 };
 const getAllTrackOrder = async (req, res) => {
   try {
-    const data = await BuyProductModal.find({ status: "ontheway" ||  "delevered"  });
+    const data = await BuyProductModal.find({ status: "Delivered"  });
     res.status(200).json({ success: true, data });
   } catch (error) {
     res.status(500).json({ success: false, message: "Failed to fetch files" });
