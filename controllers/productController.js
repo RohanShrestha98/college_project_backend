@@ -89,7 +89,7 @@ const getProductByCategory = async (req, res) => {
   const query = req.query.search;
   
   try {
-    const data = await ProductModal.find({ category: req.params.id ,title: { $regex: query, $options: 'i' }});
+    const data = await ProductModal.find({ category: req.params.id});
     res.status(200).json({ success: true, data });
   } catch (error) {
     res.status(500).json({ success: false, message: "Failed to fetch files" });
